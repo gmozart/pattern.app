@@ -50,16 +50,19 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void deletar(Long id) {
-
+      clienteRepository.deleteById(id);
     }
 
     private void salvarClientecomCep(Cliente cliente) {
         String cep = cliente.getEndereco().getCep();
-        enderecoRepository.findById(cep).orElseGet(() ->{
+        Endereco endereco = enderecoRepository.findById(cep).orElseGet(() ->{
             Endereco novoEndereco = cepService.consultarCep(cep);
             enderecoRepository.save(novoEndereco);
+
             return novoEndereco;
         });
+        
+        cliente.setEndereco(endereco);
         clienteRepository.save(cliente);
     }
 
