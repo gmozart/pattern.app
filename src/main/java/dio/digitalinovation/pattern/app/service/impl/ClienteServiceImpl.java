@@ -61,7 +61,7 @@ public class ClienteServiceImpl implements ClienteService {
 
             return novoEndereco;
         });
-        
+
         cliente.setEndereco(endereco);
         clienteRepository.save(cliente);
     }
